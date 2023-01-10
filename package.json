@@ -1,0 +1,18 @@
+{
+  "name": "scrapeit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeksilaen/ScrapeIt.git"
+  },
+  "bugs": {
+    "url": "git+https://github.com/jeksilaen/ScrapeIt/issues"
+  },
+  "author": "",
+  "license": "MIT"
+}
