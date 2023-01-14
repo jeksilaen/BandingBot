@@ -1,5 +1,5 @@
 {
-  "name": "scrapeit",
+  "name": "BandingBot",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jeksilaen/ScrapeIt.git"
+    "url": "git+https://github.com/jeksilaen/BandingBot.git"
   },
   "bugs": {
-    "url": "git+https://github.com/jeksilaen/ScrapeIt/issues"
+    "url": "git+https://github.com/jeksilaen/BandingBot/issues"
   },
   "author": "",
   "license": "MIT"
