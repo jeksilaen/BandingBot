@@ -1,7 +1,6 @@
 {
   "name": "bandingbot",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js"
@@ -14,5 +13,11 @@
     "url": "git+https://github.com/jeksilaen/BandingBot/issues"
   },
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "homepage": "https://github.com/jeksilaen/BandingBot#readme",
+  "directories": {
+    "test": "test"
+  },
+  "keywords": [],
+  "description": ""
 }
