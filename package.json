@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon index.js -e html,js,css,ejs"
   },
   "repository": {
     "type": "git",
@@ -12,12 +12,14 @@
   "bugs": {
     "url": "git+https://github.com/jeksilaen/BandingBot/issues"
   },
-  "author": "",
+  "author": "Zacharia Bachtiar",
   "license": "MIT",
   "homepage": "https://github.com/jeksilaen/BandingBot#readme",
-  "directories": {
-    "test": "test"
+  "dependencies": {
+    "ejs": "^3.1.8",
+    "express": "^4.18.2"
   },
-  "keywords": [],
-  "description": ""
+  "devDependencies": {
+    "reload": "^3.2.1"
+  }
 }

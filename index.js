@@ -1,31 +1,35 @@
 const express = require('express');
-const bodyParser = require('body-parser');
+const reload = require('reload');
+const path = require('path');
+
+const loginRouter = require('./src/routes/login.route');
+const homeRouter = require('./src/routes/home.route');
+
 const app = express();
-const port = process.env.PORT || 3000;
-const programmingLanguagesRouter = require('./src/routes/programmingLanguages.route');
 
-app.use(bodyParser.json());
-app.use(
-  bodyParser.urlencoded({
-    extended: true,
-  })
-);
+// Request format handlers
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 
-app.get('/', (req, res) => {
-  res.json({'message': 'ok'});
-})
+// EJS view engine initialization
+app.set('views', path.join(__dirname, '/src/views'));
+app.set('view engine', 'ejs');
 
-app.use('/programming-languages', programmingLanguagesRouter);
+// Serving static assets
+app.use('/login', express.static(path.join(__dirname, '/src/public')));
+app.use('/home', express.static(path.join(__dirname, '/src/public')));
 
-/* Error handler middleware */
-app.use((err, req, res, next) => {
-  const statusCode = err.statusCode || 500;
-  console.error(err.message, err.stack);
-  res.status(statusCode).json({'message': err.message});
-  
-  return;
+app.get('/', (req, res) => { res.redirect('/login') })
+app.use('/login', loginRouter)
+app.use('/home', homeRouter);
+
+
+
+
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running at http://localhost:${PORT}`)
 });
 
-app.listen(port, '0.0.0.0', () => {
-  console.log(`Example app listening at http://localhost:${port}`)
-});
+reload(app);
