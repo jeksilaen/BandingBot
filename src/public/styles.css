@@ -151,6 +151,10 @@ footer ol {
     padding: 10px 0;
 }
 
+h1{
+    color: red;
+}
+
 footer ol:first-child {
     border-bottom: 1px solid #dddfe2;
 }

@@ -1,11 +1,16 @@
+require('dotenv').config();
+
 const express = require('express');
 const reload = require('reload');
 const path = require('path');
+const cookieParser = require('cookie-parser');
 
 const loginRouter = require('./src/routes/login.route');
 const homeRouter = require('./src/routes/home.route');
+const logoutRouter = require('./src/routes/logout.route');
 
 const app = express();
+app.use(cookieParser())
 
 // Request format handlers
 app.use(express.json());
@@ -15,13 +20,13 @@ app.use(express.urlencoded({extended: true}));
 app.set('views', path.join(__dirname, '/src/views'));
 app.set('view engine', 'ejs');
 
-// Serving static assets
-app.use('/login', express.static(path.join(__dirname, '/src/public')));
-app.use('/home', express.static(path.join(__dirname, '/src/public')));
+// // Serving static assets
+app.use(express.static(path.join(__dirname, '/src/public')));
 
-app.get('/', (req, res) => { res.redirect('/login') })
+
+app.use('/', homeRouter);
 app.use('/login', loginRouter)
-app.use('/home', homeRouter);
+app.use('/logout', logoutRouter)
 
 
 

@@ -12,6 +12,10 @@ router.get('/', logger.logPageRequest, loginController.get, errorHandler)
 
 router.post('/', logger.logFormSubmit, loginController.post, errorHandler)
 
+router.post('/', (req, res) => {
+    res.send('hi')
+})
+
 
 
 

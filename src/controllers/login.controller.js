@@ -2,21 +2,22 @@ const loginService = require('../services/login.service')
 
 function get(req, res, next) {
     try {
-        res.render('login')
-        return
+        return res.render('login')
     } catch (error) {
         console.error('Error while delivering login page!');
-        next(error);
+        return next(error);
     }
 }
 
 function post(req, res, next) {
     try {
-        if (loginService.login(req.body)) {
-            res.redirect('/home')
+        const {token, maxAge} = loginService.login(req.body)
+        if (token) {
+            res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 })
+            res.redirect('/')
         }
         else{
-            res.redirect('/login')
+            return res.redirect('/login')
         }
         
     } catch (error) {

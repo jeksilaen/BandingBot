@@ -1,16 +1,19 @@
-// const db = require('./db.service');
-// const helper = require('../utils/helper.util');
-// const config = require('../configs/general.config');
+const createToken = require('../utils/createToken');
+
 
 function login(userData) {
   // check(userData)
-  console.log(userData);
-
-  if (true) {
-    return true
+  try {
+    if (true) {
+      const maxAge = 3 * 24 * 60 * 60;
+      const token = createToken('123', maxAge);
+      return {token, maxAge}
+    }
+    return false
+    
+  } catch (error) {
+    console.error(error);
   }
-
-  return false
 }
 
 
