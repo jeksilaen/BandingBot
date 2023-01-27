@@ -13,7 +13,16 @@ function logFormSubmit(req, res, next) {
     next();
 };
 
+function logUserLogout(req, res, next) {
+    console.log('\nA user has logged out.');
+    console.log('Here is the form data:');
+    console.log(req.body);
+    
+    next();
+};
+
 module.exports = {
     logPageRequest,
-    logFormSubmit
+    logFormSubmit,
+    logUserLogout
 }

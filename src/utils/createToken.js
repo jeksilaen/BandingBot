@@ -1,11 +1,17 @@
 const jwt = require('jsonwebtoken');
 
-function createToken(id, maxAge){
+function createAccToken(id, maxAge){
   return jwt.sign({id}, process.env.TOKEN_KEY, {
     expiresIn: maxAge
   })
 }
 
+function createRefToken(id){
+  return jwt.sign({id}, process.env.TOKEN_KEY)
+}
 
 
-module.exports = createToken;
+module.exports = {
+  createAccToken,
+  createRefToken
+};

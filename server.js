@@ -5,9 +5,9 @@ const reload = require('reload');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 
-const loginRouter = require('./src/routes/login.route');
 const homeRouter = require('./src/routes/home.route');
-const logoutRouter = require('./src/routes/logout.route');
+const loginRouter = require('./src/routes/login.route');
+const registerRouter = require('./src/routes/register.route');
 
 const app = express();
 app.use(cookieParser())
@@ -26,7 +26,7 @@ app.use(express.static(path.join(__dirname, '/src/public')));
 
 app.use('/', homeRouter);
 app.use('/login', loginRouter)
-app.use('/logout', logoutRouter)
+app.use('/register', registerRouter)
 
 
 

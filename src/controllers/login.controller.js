@@ -11,9 +11,12 @@ function get(req, res, next) {
 
 function post(req, res, next) {
     try {
-        const {token, maxAge} = loginService.login(req.body)
-        if (token) {
-            res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 })
+        const {accToken, refToken, maxAge} = loginService.login(req.body)
+        if (accToken, refToken) {
+            res.cookie('jwtAcc', accToken, { httpOnly: true, maxAge: maxAge * 1000 })
+            
+            res.cookie('jwtRef', refToken, { httpOnly: true })
+
             res.redirect('/')
         }
         else{
@@ -27,7 +30,19 @@ function post(req, res, next) {
 }
 
 
-
+function logout(req, res, next) {
+    try {
+        res.cookie('jwt', '', {
+            maxAge: 1
+        })
+    
+        res.locals.user = null
+        res.redirect('/login')
+    } catch (error) {
+        next(error);
+    }
+    
+}
 
 
 
@@ -36,5 +51,6 @@ function post(req, res, next) {
 
 module.exports = {
     get,
-    post
+    post,
+    logout
 }

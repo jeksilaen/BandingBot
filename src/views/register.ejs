@@ -9,18 +9,23 @@
 </head>
 <body>
     <main>
+        <div class="colm-logo" style="text-align: center; margin-bottom: -3rem;">
+            <img src="/img/bandingbot-logo.png" alt="Logo" style="opacity: 0;">
+            <h3>Register a new account here!</h3>
+        </div>
         <div class="row">
-            <div class="colm-logo">
-                <img src="/img/bandingbot-logo.png" alt="Logo">
-                <h3>A handy little web scraper to help you compare product costs.</h3>
-            </div>
+            
             <div class="colm-form">
                 <div class="form-container">
-                    <form action="/login" method="post">
+                    <form action="/register" method="post">
+                        <input type="text" name="fName" placeholder="First Name">
+                        <input type="text" name="lName" placeholder="Last Name">
+                        <input type="text" placeholder="Date Of Birth : dd/mm/yyyy"
+                                           onfocus="(this.type='date')">
                         <input type="text" name="email" placeholder="Email address">
                         <input type="password" name="password" placeholder="Password">
-                        <button type="submit" class="btn-login">Login</button>
-                        <a style="color: #678d50;" href="/register">Register a new account</a>
+                        <button type="submit" class="btn-login">Register</button>
+                        <a style="color: #678d50;" href="/login">Already has an account?</a>
                     </form>
                 </div>
                 <p><b>Get informative data</b> from numerous e-commerce!</p>

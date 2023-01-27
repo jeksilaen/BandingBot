@@ -1,10 +1,10 @@
 const jwt = require('jsonwebtoken');
 
 function jwtAuth(req, res, next) {
-    const token = req.cookies.jwt
+    const accToken = req.cookies.jwtAcc
 
-    if (token) {
-        jwt.verify(token, process.env.TOKEN_KEY, (err, decodedToken) => {
+    if (accToken) {
+        jwt.verify(accToken, process.env.TOKEN_KEY, (err, decodedToken) => {
             if (err) {
                 console.log('Request denied!');
                 console.error(err.message);
