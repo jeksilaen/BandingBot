@@ -17,6 +17,9 @@ router.post('/', logger.logFormSubmit, loginController.post, errorHandler)
 router.get('/out', logger.logUserLogout, loginController.logout, errorHandler)
 
 
+// Refresh JWT access token
+router.get('/refreshToken', logger.logRefreshToken, loginController.refreshToken, errorHandler)
+
 
 
 

@@ -19,8 +19,8 @@ function jwtAuth(req, res, next) {
             }
         })
     } else{
-        console.log('Request denied!');
-        res.redirect('/login');
+        console.log('Access token expired or non-existent!');
+        res.redirect('/login/refreshToken');
     }
 }
 

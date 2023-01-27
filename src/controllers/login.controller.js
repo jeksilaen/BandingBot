@@ -1,4 +1,5 @@
 const loginService = require('../services/login.service')
+let refTokens = require('../../refTokens')
 
 function get(req, res, next) {
     try {
@@ -12,9 +13,13 @@ function get(req, res, next) {
 function post(req, res, next) {
     try {
         const {accToken, refToken, maxAge} = loginService.login(req.body)
+
+        // save ref token
+        refTokens.push(refToken);
+
         if (accToken, refToken) {
             res.cookie('jwtAcc', accToken, { httpOnly: true, maxAge: maxAge * 1000 })
-            
+
             res.cookie('jwtRef', refToken, { httpOnly: true })
 
             res.redirect('/')
@@ -32,9 +37,11 @@ function post(req, res, next) {
 
 function logout(req, res, next) {
     try {
-        res.cookie('jwt', '', {
+        res.cookie('jwtAcc', '', {
             maxAge: 1
         })
+
+        refTokens = refTokens.filter(token => token !== req.cookies.jwtRef)
     
         res.locals.user = null
         res.redirect('/login')
@@ -44,6 +51,32 @@ function logout(req, res, next) {
     
 }
 
+function refreshToken(req, res, next) {
+    try { 
+        if (refTokens.includes(req.cookies.jwtRef)) {
+            const {accToken, maxAge} = loginService.refreshToken(req.cookies.jwtRef)
+
+            if (accToken) {
+                res.cookie('jwtAcc', accToken, { httpOnly: true, maxAge: maxAge * 1000 })
+    
+                res.redirect('/')
+            }
+            else{
+                return res.redirect('/login')
+            }
+        }
+        
+        else{
+            console.log('Refresh token not found');
+            res.redirect('/login')
+        }
+
+        
+    } catch (error) {
+        console.error('Error while trying to log in user!');
+        next(error);
+    }
+}
 
 
 
@@ -52,5 +85,6 @@ function logout(req, res, next) {
 module.exports = {
     get,
     post,
-    logout
+    logout,
+    refreshToken
 }

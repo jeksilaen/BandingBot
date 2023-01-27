@@ -1,4 +1,5 @@
 const {createAccToken, createRefToken} = require('../utils/createToken');
+let refTokens = require('../../refTokens')
 
 
 function login(userData) {
@@ -21,9 +22,21 @@ function login(userData) {
   
 }
 
+function refreshToken() {
+    const maxAge = 15;
+    const accToken = createAccToken('123', maxAge);
+
+    console.log('New access token created!');
+
+    if (accToken) {
+        return {accToken, maxAge}
+    }
+    return false
+}
 
 
 
 module.exports = {
-  login
+  login,
+  refreshToken
 }

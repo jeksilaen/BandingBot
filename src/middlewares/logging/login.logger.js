@@ -15,14 +15,20 @@ function logFormSubmit(req, res, next) {
 
 function logUserLogout(req, res, next) {
     console.log('\nA user has logged out.');
-    console.log('Here is the form data:');
-    console.log(req.body);
     
     next();
 };
 
+function logRefreshToken(req, res, next) {
+    console.log('\nA user has requested a new access token.');
+    
+    next();
+};
+
+
 module.exports = {
     logPageRequest,
     logFormSubmit,
-    logUserLogout
+    logUserLogout,
+    logRefreshToken
 }
