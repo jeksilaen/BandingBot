@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "tsc && concurrently \"tsc -w\" \"nodemon server.js -e html,js,css,ejs,ts\""
+    "start": "prisma generate && node server.js",
+    "dev": "tsc && concurrently \"tsc -w\" \"nodemon server.js -e html,js,css,ejs,ts\"",
+    "migrate:dev": "prisma migrate dev"
   },
   "repository": {
     "type": "git",
