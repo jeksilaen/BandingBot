@@ -1,10 +1,10 @@
 require('dotenv').config();
 
 const express = require('express');
-const reload = require('reload');
+// const reload = require('reload');
 const path = require('path');
 const cookieParser = require('cookie-parser');
-const serverless = require('serverless-http');
+// const serverless = require('serverless-http');
 
 const homeRouter = require('./src/routes/home.route');
 const loginRouter = require('./src/routes/login.route');
@@ -25,21 +25,17 @@ app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, '/src/public')));
 
 
-// app.use('/', homeRouter);
-// app.use('/login', loginRouter)
-// app.use('/register', registerRouter)
-
-app.use('/.netlify/functions/', homeRouter);
-app.use('/.netlify/functions/login', loginRouter)
-app.use('/.netlify/functions/register', registerRouter)
+app.use('/', homeRouter);
+app.use('/login', loginRouter)
+app.use('/register', registerRouter)
 
 
 
-module.exports.handler = serverless(app);
+// module.exports.handler = serverless(app);
 
-// const PORT = process.env.PORT || 3000;
-// app.listen(PORT, () => {
-//   console.log(`Server is running at http://localhost:${PORT}`)
-// });
+const PORT = process.env.PORT || 3000;
+app.listen(`0.0.0.0:$PORT`, () => {
+  console.log(`Server is running at http://localhost:${PORT}`)
+});
 
 // reload(app);
