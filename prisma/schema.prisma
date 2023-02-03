@@ -1,0 +1,65 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String   @id @default(uuid())
+  fName       String
+  lName       String
+  dateOfBirth DateTime
+  email       String   @unique
+  password    String
+}
+
+// model User {
+//   id              String          @id @default(uuid())
+//   age             Int
+//   name            String
+//   email           String          @unique
+//   role            Role            @default(BASIC)
+//   writtenPosts    Post[]          @relation("WrittenPosts")
+//   favoritedPosts  Post[]          @relation("FavoritePosts")
+//   userPreferences UserPreference?
+
+//   @@unique([age, name])
+//   @@index([email])
+// }
+
+// model UserPreference {
+//   id           String  @id @default(uuid())
+//   emailUpdates Boolean
+//   user         User?   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+//   userId       String? @unique
+// }
+
+// model Post {
+//   id            String     @id @default(uuid())
+//   title         String
+//   averageRating Float
+//   createdAt     DateTime   @default(now())
+//   updatedAt     DateTime   @updatedAt
+//   author        User       @relation("WrittenPosts", fields: [authorId], references: [id])
+//   authorId      String
+//   favoritedBy   User?      @relation("FavoritePosts", fields: [favoritedById], references: [id])
+//   favoritedById String?
+//   categories    Category[]
+// }
+
+// model Category {
+//   id    String @id @default(uuid())
+//   name  String @unique
+//   posts Post[]
+// }
+
+// enum Role {
+//   BASIC
+//   ADMIN
+// }

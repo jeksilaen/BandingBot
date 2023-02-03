@@ -1,25 +1,22 @@
-const loginService = require('../services/login.service')
+const query = require('../dist/db.service')
+
 
 function get(req, res, next) {
     try {
         return res.render('register')
     } catch (error) {
-        console.error('Error while delivering login page!');
+        console.error('Error while delivering register page!');
         return next(error);
     }
 }
 
-function post(req, res, next) {
+async function post(req, res, next) {
     try {
-        // const {token, maxAge} = loginService.login(req.body)
-        // if (token) {
-        //     res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 })
-        //     res.redirect('/')
-        // }
-        // else{
-        //     return res.redirect('/login')
-        // }
-        res.redirect('/login')
+        if (await query.createUser(req.body)) {
+            return res.redirect('/login')
+        }
+
+        res.redirect('/register')
         
     } catch (error) {
         console.error('Error while trying to log in user!');

@@ -1,15 +1,15 @@
-const env = process.env;
-const fs = require('fs');
-const db = {
-    host: env.DB_HOST,
-    user: env.DB_USER,
-    password: env.DB_PASSWORD,
-    database: env.DB_NAME || 'programming_languages',
-    port: env.DB_PORT || 3306,
-    ssl: {
-      mode: 'VERIFY_IDENTITY',
-      ca: fs.readFileSync('/etc/ssl/cert.pem', 'utf-8'),
-    }
-};
 
-module.exports = db;
+// const { Client } = require('pg')
+// const client = new Client({
+//   host: process.env.DB_HOST,
+//   user: process.env.DB_USER,
+//   port: process.env.DB_PORT,
+//   password: process.env.DB_PASS,
+//   database: process.env.DB_NAME
+// })
+
+
+
+// module.exports = {
+//   client
+// }

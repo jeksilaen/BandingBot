@@ -1,5 +1,11 @@
 const loginService = require('../services/login.service')
 let refTokens = require('../../refTokens')
+const query = require('../dist/db.service')
+const jwt = require('jsonwebtoken');
+
+const {createAccToken, createRefToken} = require('../utils/createToken');
+
+
 
 function get(req, res, next) {
     try {
@@ -10,21 +16,32 @@ function get(req, res, next) {
     }
 }
 
-function post(req, res, next) {
+async function post(req, res, next) {
     try {
-        const {accToken, refToken, maxAge} = loginService.login(req.body)
+        const result = await query.loginUser(req.body)
 
-        // save ref token
-        refTokens.push(refToken);
+        if (result) {
+            const user = await loginService.authUser(req.body.id, req.body.password, result.password)
 
-        if (accToken, refToken) {
-            res.cookie('jwtAcc', accToken, { httpOnly: true, maxAge: maxAge * 1000 })
 
-            res.cookie('jwtRef', refToken, { httpOnly: true })
+            if (user) {
+                refTokens.push(user.refToken);
+    
+                res.cookie('jwtAcc', user.accToken, { httpOnly: true, maxAge: user.maxAge * 1000 })
+    
+                res.cookie('jwtRef', user.refToken, { httpOnly: true })
+    
+                res.redirect('/')
+            }
 
-            res.redirect('/')
+            else{
+                console.log('Authentication failed!');
+                return res.redirect('/login')
+            }
         }
+        
         else{
+            console.log('User does not exist!');
             return res.redirect('/login')
         }
         
@@ -41,6 +58,10 @@ function logout(req, res, next) {
             maxAge: 1
         })
 
+        res.cookie('jwtRef', '', {
+            maxAge: 1
+        })
+
         refTokens = refTokens.filter(token => token !== req.cookies.jwtRef)
     
         res.locals.user = null
@@ -54,16 +75,24 @@ function logout(req, res, next) {
 function refreshToken(req, res, next) {
     try { 
         if (refTokens.includes(req.cookies.jwtRef)) {
-            const {accToken, maxAge} = loginService.refreshToken(req.cookies.jwtRef)
+            jwt.verify(req.cookies.jwtRef, process.env.TOKEN_KEY, (err, decodedToken) => {
+                if (err) {
+                    console.log('Request denied!');
+                    console.error(err.message);
+            
+                    return res.redirect('/login');
+                  }
+                  else{
+                    console.log('Request accepted!');
+            
+                    maxAge = 15;
+                    const accToken = createAccToken({id: decodedToken.id}, maxAge);
+                    
+                    res.cookie('jwtAcc', accToken, { httpOnly: true, maxAge: maxAge * 1000 })
 
-            if (accToken) {
-                res.cookie('jwtAcc', accToken, { httpOnly: true, maxAge: maxAge * 1000 })
-    
-                res.redirect('/')
-            }
-            else{
-                return res.redirect('/login')
-            }
+                    res.redirect('/')
+                  }
+            })
         }
         
         else{
