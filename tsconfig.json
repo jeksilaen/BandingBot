@@ -4,6 +4,11 @@
         "outDir": "./src/dist",
         "strict": true,
         "lib": ["esnext"],
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "incremental": true,
+        "target": "es6",
+        "module": "commonjs",
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true
     }
 }
