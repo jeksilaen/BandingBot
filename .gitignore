@@ -93,6 +93,8 @@ typings/
 # Serverless directories
 .serverless/
 
+functions
+
 # FuseBox cache
 .fusebox/
 
