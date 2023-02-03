@@ -35,7 +35,7 @@ app.use('/register', registerRouter)
 
 const PORT = process.env.PORT || 3000;
 app.listen(`0.0.0.0:$PORT`, () => {
-  console.log(`Server is running at http://localhost:${PORT}`)
+  console.log(`Server is running at ${PORT}`)
 });
 
 // reload(app);
