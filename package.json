@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
-    "build": "prisma generate",
+    "build": "prisma generate && node server.js",
     "dev": "tsc && concurrently \"tsc -w\" \"nodemon server.js -e html,js,css,ejs,ts\""
   },
   "repository": {
