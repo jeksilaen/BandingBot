@@ -17,8 +17,8 @@ app.use(cookieParser())
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
-app.use(express.raw({ type: "application/vnd.custom-type" }));
-app.use(express.text({ type: "text/html" }));
+// app.use(express.raw({ type: "application/vnd.custom-type" }));
+// app.use(express.text({ type: "text/html" }));
 
 // EJS view engine initialization
 app.set('views', path.join(__dirname, '/src/views'));
