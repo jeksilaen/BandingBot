@@ -28,26 +28,26 @@
 
 ## Previews :computer: [VIEW THE DEPLOYED PROJECT HERE](https://web-production-f39f.up.railway.app/)
 
-![alt text](https://github.com/jeksilaen/HackChat/blob/main/docs-assets/home.png?raw=true)
-![alt text](https://github.com/jeksilaen/HackChat/blob/main/docs-assets/main.png?raw=true)
+![alt text](https://github.com/jeksilaen/BandingBot/blob/main/docs-assets/login.png?raw=true)
+![alt text](https://github.com/jeksilaen/BandingBot/blob/main/docs-assets/home.png?raw=true)
  
 ## Usage :wrench:
 
-> ### __Enter a username__
-On the home page, simply __enter your username__. This name will be used and displayed inside the chat room.
+> ### __Register / Login__
+Login with an existing account, or create a new one on the register page. This will trigger a JWT authorazition with web cookies.
 
-> ### __Pick a room__
-On the home page, you can pick and add new rooms with unique names. The program will then seperate this using Socket.IO
+> ### __Type In A Product__
+On the home page, there's only 1 input. Simply enter a product name, and press the compare button.
 
-> ### __Send Texts__
-What is a chat application if you cant send messages!
+> ### __Download The Result__
+Once the process is done, click the generated download button to get the data in .xlsx format.
 
 ## Contribute :raised_hand:
 
 ### Clone the repo and make changes however you want!
 ```js
 //Run the git clone command'=
-$ git clone 'https://github.com/jeksilaen/HackChat.git' //Remove the strings (')
+$ git clone 'https://github.com/jeksilaen/BandingBot.git' //Remove the strings (')
 
 //Dont forget to run 'npm install or npm i' to install all the dependencies
 $ npm install
