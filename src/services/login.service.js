@@ -1,6 +1,5 @@
 const {createAccToken, createRefToken} = require('../utils/createToken');
 
-const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt')
 
 

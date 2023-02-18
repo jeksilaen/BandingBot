@@ -1,14 +1,289 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home | BandingBot</title>
-</head>
-<body>
-    <h1>Home</h1>
-    <h1>Welcome, <%= user %> </h1>
-    <a href="/login/out">log out</a>
-</body>
+    <link rel="stylesheet" href="/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+
+    <style>
+      .buttonload {
+        background-color: #04aa6d; /* Green background */
+        border: none; /* Remove borders */
+        color: white; /* White text */
+        padding: 12px 24px; /* Some padding */
+        font-size: 16px; /* Set a font-size */
+      }
+
+      /* Add a right margin to each icon */
+      .fa {
+        margin-left: -12px;
+        margin-right: 8px;
+      }
+
+      .btn {
+        background-color: DodgerBlue;
+        border: none;
+        color: white;
+        padding: 12px 30px;
+        cursor: pointer;
+        font-size: 20px;
+        margin-top: 2rem;
+      }
+
+      /* Darker background on mouse-over */
+      .btn:hover {
+        background-color: RoyalBlue;
+      }
+    </style>
+  </head>
+
+  <style>
+    input[type="text"],
+    select {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      background-color: #94d170;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #b1e096;
+    }
+  </style>
+
+  <body style="margin: 0; background-color: white">
+    <div
+      style="
+        height: 90vh;
+        background-color: #f0f2f5;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      "
+    >
+      <div style="margin-right: 15rem">
+        <p style="margin-bottom: 1rem">Type in a product of choice:</p>
+
+        <form action="/scrape" method="post" onsubmit="loading()">
+          <input type="text" name="userInput" placeholder="e.g., iPhone 14" />
+          <button id="postBtn" type="submit" class="buttonload">
+            Compare!
+          </button>
+        </form>
+        <p style="font-size: 12px; font-weight: bold; color: #969292">
+          <i style="font-size: 20px; margin-top: 10px" class="fa">&#xf0eb;</i
+          >The process usually takes around 1 minute
+        </p>
+        <p style="font-size: 12px; font-weight: bold; color: #c37f7f">
+          <i style="font-size: 12px; margin-top: 10px" class="fa fa-warning"></i
+          >Try changing wi-fi / network connection if an error occures
+        </p>
+
+        <% if (linkData === "") { %> <%} else { %>
+        <a href="<%= linkData.link %>"
+          ><button class="btn">
+            <i class="fa fa-download"></i> Download
+          </button></a
+        >
+        <% } %>
+      </div>
+
+      <div style="display: flex; flex-direction: column">
+        <div
+          style="
+            height: 125px;
+            width: 550px;
+            background-color: white;
+            display: flex;
+            align-items: center;
+          "
+        >
+          <img class="partners" src="/img/tokped.png" alt="Logo" />
+          <div style="display: flex; flex-direction: column">
+            <p style="font-size: 13px">
+              Highest price:
+              <a href="<%= dataTokped.linkHighest %>"
+                ><span style="color: green; font-weight: bold"
+                  ><%= dataTokped.highest ? dataTokped.highest : '' %></span
+                ></a
+              >
+            </p>
+
+            <p style="font-size: 13px; margin-top: 1rem; margin-bottom: 1rem">
+              Lowest price:
+              <a href="<%= dataTokped.linkLowest %>"
+                ><span style="color: green; font-weight: bold"
+                  ><%= dataTokped.lowest ? dataTokped.lowest : '' %></span
+                ></a
+              >
+            </p>
+
+            <p style="font-size: 13px">
+              Average price:
+              <span style="color: green; font-weight: bold"
+                ><%= dataTokped.average ? dataTokped.average : '' %></span
+              >
+            </p>
+          </div>
+        </div>
+        <div
+          style="
+            height: 125px;
+            width: 550px;
+            background-color: white;
+            display: flex;
+            align-items: center;
+          "
+        >
+          <img class="partners" src="/img/lazada.png" alt="Logo" />
+          <div style="display: flex; flex-direction: column">
+            <p style="font-size: 13px">
+              Highest price:
+              <a href="<%= dataLazada.linkHighest %>"
+                ><span style="color: green; font-weight: bold"
+                  ><%= dataLazada.highest ? dataLazada.highest : '' %></span
+                ></a
+              >
+            </p>
+
+            <p style="font-size: 13px; margin-top: 1rem; margin-bottom: 1rem">
+              Lowest price:
+              <a href="<%= dataLazada.linkLowest %>"
+                ><span style="color: green; font-weight: bold"
+                  ><%= dataLazada.lowest ? dataLazada.lowest : '' %></span
+                ></a
+              >
+            </p>
+
+            <p style="font-size: 13px">
+              Average price:
+              <span style="color: green; font-weight: bold"
+                ><%= dataLazada.average ? dataLazada.average : '' %></span
+              >
+            </p>
+          </div>
+        </div>
+        <div
+          style="
+            height: 125px;
+            width: 550px;
+            background-color: white;
+            display: flex;
+            align-items: center;
+          "
+        >
+          <img class="partners" src="/img/shopee.png" alt="Logo" />
+          <div style="display: flex; flex-direction: column">
+            <p style="font-size: 13px">
+              Highest price:
+              <a href="<%= dataShopee.linkHighest %>"
+                ><span style="color: green; font-weight: bold"
+                  ><%= dataShopee.highest ? dataShopee.highest : '' %></span
+                ></a
+              >
+            </p>
+
+            <p style="font-size: 13px; margin-top: 1rem; margin-bottom: 1rem">
+              Lowest price:
+              <a href="<%= dataShopee.linkLowest %>"
+                ><span style="color: green; font-weight: bold"
+                  ><%= dataShopee.lowest ? dataShopee.lowest : '' %></span
+                ></a
+              >
+            </p>
+
+            <p style="font-size: 13px">
+              Average price:
+              <span style="color: green; font-weight: bold"
+                ><%= dataShopee.average ? dataShopee.average : '' %></span
+              >
+            </p>
+          </div>
+        </div>
+        <div
+          style="
+            height: 125px;
+            width: 550px;
+            background-color: white;
+            display: flex;
+            align-items: center;
+          "
+        >
+          <img class="partners" src="/img/bukalapak.png" alt="Logo" />
+          <div style="display: flex; flex-direction: column">
+            <p style="font-size: 13px">
+              Highest price:
+              <a href="<%= dataBukalapak.linkHighest %>"
+                ><span style="color: green; font-weight: bold"
+                  ><%= dataBukalapak.highest ? dataBukalapak.highest : ''
+                  %></span
+                ></a
+              >
+            </p>
+
+            <p style="font-size: 13px; margin-top: 1rem; margin-bottom: 1rem">
+              Lowest price:
+              <a href="<%= dataBukalapak.linkLowest %>"
+                ><span style="color: green; font-weight: bold"
+                  ><%= dataBukalapak.lowest ? dataBukalapak.lowest : '' %></span
+                ></a
+              >
+            </p>
+
+            <p style="font-size: 13px">
+              Average price:
+              <span style="color: green; font-weight: bold"
+                ><%= dataBukalapak.average ? dataBukalapak.average : '' %></span
+              >
+            </p>
+          </div>
+        </div>
+
+        <a
+          href="/login/out"
+          style="
+            text-align: right;
+            margin-top: 1rem;
+            font-size: bold;
+            text-decoration: none;
+            color: white;
+            background-color: #8f5644;
+            width: fit-content;
+            padding: 0.4rem;
+            border-radius: 0.5rem;
+          "
+          >Logout</a
+        >
+      </div>
+    </div>
+    <footer>
+      <div class="footer-contents">
+        <small>Zacharia Bachtiar &copy; 2022</small>
+      </div>
+    </footer>
+
+    <script src="/reload/reload.js"></script>
+    <script src="/script.js"></script>
+  </body>
 </html>
